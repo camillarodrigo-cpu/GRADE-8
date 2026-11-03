@@ -1,0 +1,5443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Robotics Code Arena | Grade 8</title>
+
+<style>
+
+/* =========================================================
+   ROBOTICS CODE ARENA V5
+   COMIC ARENA EDITION
+   Grade 8 Robotics
+   ========================================================= */
+
+:root{
+    --navy:#07152f;
+    --navy2:#0b2047;
+    --blue:#1769ff;
+    --blue2:#34a5ff;
+
+    --red:#f23846;
+    --red2:#c91e31;
+
+    --yellow:#ffd83d;
+    --yellow2:#ffbd22;
+
+    --cream:#fffbea;
+    --white:#ffffff;
+    --ink:#08101f;
+
+    --muted:#aebdd7;
+    --green:#46d88a;
+
+    --outline:#050b16;
+
+    --comic-shadow:
+        7px 7px 0 var(--outline);
+}
+
+*{
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    margin:0;
+    min-height:100vh;
+
+    font-family:
+        "Trebuchet MS",
+        "Segoe UI",
+        Arial,
+        sans-serif;
+
+    color:var(--white);
+
+    background:
+        radial-gradient(
+            circle at 10% 15%,
+            rgba(23,105,255,.35),
+            transparent 28%
+        ),
+        radial-gradient(
+            circle at 90% 25%,
+            rgba(242,56,70,.18),
+            transparent 28%
+        ),
+        linear-gradient(
+            135deg,
+            #06142e,
+            #0a2450 50%,
+            #07162f
+        );
+
+    overflow-x:hidden;
+}
+
+
+/* =========================================================
+   COMIC HALFTONE BACKGROUND
+   ========================================================= */
+
+body::before{
+    content:"";
+
+    position:fixed;
+    inset:0;
+
+    z-index:-2;
+
+    pointer-events:none;
+
+    opacity:.18;
+
+    background-image:
+        radial-gradient(
+            rgba(255,255,255,.38) 1px,
+            transparent 1px
+        );
+
+    background-size:18px 18px;
+}
+
+
+/* diagonal comic streak */
+
+body::after{
+    content:"";
+
+    position:fixed;
+
+    width:550px;
+    height:1000px;
+
+    top:-300px;
+    right:-330px;
+
+    z-index:-1;
+
+    transform:rotate(35deg);
+
+    background:
+        rgba(255,216,61,.055);
+
+    pointer-events:none;
+}
+
+
+/* =========================================================
+   HEADER
+   ========================================================= */
+
+.topbar{
+    min-height:74px;
+
+    padding:0 5%;
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    gap:20px;
+
+    position:sticky;
+    top:0;
+
+    z-index:100;
+
+    background:
+        rgba(5,16,38,.96);
+
+    border-bottom:
+        4px solid var(--outline);
+
+    box-shadow:
+        0 4px 0 var(--yellow);
+}
+
+.brand{
+    display:flex;
+    align-items:center;
+    gap:13px;
+}
+
+.brandMark{
+    width:43px;
+    height:43px;
+
+    display:grid;
+    place-items:center;
+
+    transform:rotate(-4deg);
+
+    border:3px solid var(--outline);
+
+    background:var(--yellow);
+
+    color:var(--ink);
+
+    box-shadow:
+        4px 4px 0 var(--red);
+
+    font-family:Consolas,monospace;
+    font-size:14px;
+    font-weight:900;
+}
+
+.brandName{
+    font-size:15px;
+    font-weight:1000;
+
+    letter-spacing:1px;
+}
+
+.brandSub{
+    margin-top:2px;
+
+    color:var(--yellow);
+
+    font-size:8px;
+    font-weight:900;
+
+    letter-spacing:1.5px;
+}
+
+.gradeTag{
+    padding:8px 13px;
+
+    transform:rotate(2deg);
+
+    border:3px solid var(--outline);
+
+    background:var(--red);
+
+    color:white;
+
+    box-shadow:
+        4px 4px 0 var(--yellow);
+
+    font-size:10px;
+    font-weight:1000;
+
+    letter-spacing:1px;
+}
+
+
+/* =========================================================
+   NOTICE STRIP
+   ========================================================= */
+
+.noticeBar{
+    min-height:42px;
+
+    padding:10px 20px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    background:var(--yellow);
+
+    border-bottom:
+        3px solid var(--outline);
+
+    color:var(--ink);
+
+    text-align:center;
+
+    font-size:10px;
+    font-weight:900;
+}
+
+.noticePrefix{
+    margin-right:8px;
+
+    color:var(--red);
+
+    font-weight:1000;
+}
+
+
+/* =========================================================
+   ENTRY
+   ========================================================= */
+
+#entryScreen{
+    min-height:
+        calc(100vh - 116px);
+
+    padding:
+        70px 24px 90px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    position:relative;
+
+    overflow:hidden;
+}
+
+
+/* giant comic background text */
+
+#entryScreen::before{
+    content:"08";
+
+    position:absolute;
+
+    left:-25px;
+    bottom:-70px;
+
+    color:
+        rgba(255,216,61,.08);
+
+    -webkit-text-stroke:
+        4px rgba(255,216,61,.08);
+
+    font-family:
+        Impact,
+        Arial Black,
+        sans-serif;
+
+    font-size:
+        clamp(250px,38vw,540px);
+
+    line-height:.8;
+
+    transform:rotate(-5deg);
+
+    pointer-events:none;
+}
+
+
+/* comic circle */
+
+#entryScreen::after{
+    content:"";
+
+    position:absolute;
+
+    width:370px;
+    height:370px;
+
+    right:-190px;
+    top:70px;
+
+    border:
+        30px solid rgba(242,56,70,.06);
+
+    border-radius:50%;
+
+    box-shadow:
+        0 0 0 35px rgba(255,216,61,.025);
+
+    pointer-events:none;
+}
+
+
+.entryWrap{
+    width:min(1100px,100%);
+
+    display:grid;
+    grid-template-columns:
+        1.15fr .85fr;
+
+    gap:65px;
+
+    align-items:center;
+
+    position:relative;
+    z-index:2;
+}
+
+
+/* =========================================================
+   HERO
+   ========================================================= */
+
+.heroLabel{
+    width:max-content;
+
+    margin-bottom:19px;
+
+    padding:7px 12px;
+
+    transform:rotate(-2deg);
+
+    border:
+        3px solid var(--outline);
+
+    background:var(--yellow);
+
+    color:var(--ink);
+
+    box-shadow:
+        4px 4px 0 var(--red);
+
+    font-size:10px;
+    font-weight:1000;
+
+    letter-spacing:1.4px;
+}
+
+.hero h1{
+    margin:0;
+
+    font-family:
+        Impact,
+        "Arial Black",
+        sans-serif;
+
+    font-size:
+        clamp(55px,8vw,94px);
+
+    font-weight:900;
+
+    line-height:.87;
+
+    letter-spacing:1px;
+
+    text-transform:uppercase;
+
+    text-shadow:
+        6px 6px 0 var(--outline);
+}
+
+.hero h1 span{
+    display:inline-block;
+
+    margin-top:8px;
+
+    color:var(--yellow);
+
+    -webkit-text-stroke:
+        2px var(--outline);
+
+    transform:rotate(-1deg);
+}
+
+.heroText{
+    max-width:600px;
+
+    margin-top:30px;
+
+    padding-left:17px;
+
+    border-left:
+        5px solid var(--red);
+
+    color:#c7d5ee;
+
+    font-size:14px;
+
+    line-height:1.75;
+}
+
+.heroMeta{
+    margin-top:27px;
+
+    display:flex;
+    flex-wrap:wrap;
+
+    gap:9px;
+}
+
+.heroMeta span{
+    padding:7px 10px;
+
+    border:
+        2px solid var(--outline);
+
+    background:#102c5d;
+
+    box-shadow:
+        3px 3px 0 var(--outline);
+
+    color:#e8f2ff;
+
+    font-size:8px;
+    font-weight:1000;
+
+    letter-spacing:.8px;
+}
+
+
+/* =========================================================
+   REGISTRATION
+   ========================================================= */
+
+.registration{
+    padding:35px 29px 30px;
+
+    position:relative;
+
+    transform:rotate(1deg);
+
+    border:
+        4px solid var(--outline);
+
+    background:
+        var(--cream);
+
+    color:var(--ink);
+
+    box-shadow:
+        10px 10px 0 var(--red);
+
+    overflow:visible;
+}
+
+.registration::before{
+    content:"PLAYER REGISTRATION";
+
+    position:absolute;
+
+    top:-18px;
+    left:20px;
+
+    padding:7px 11px;
+
+    transform:rotate(-2deg);
+
+    border:
+        3px solid var(--outline);
+
+    background:var(--yellow);
+
+    box-shadow:
+        3px 3px 0 var(--outline);
+
+    font-size:8px;
+    font-weight:1000;
+
+    letter-spacing:1px;
+}
+
+.registration::after{
+    content:"READY!";
+
+    position:absolute;
+
+    top:-42px;
+    right:-30px;
+
+    padding:11px 9px;
+
+    transform:rotate(9deg);
+
+    border:
+        3px solid var(--outline);
+
+    background:var(--red);
+
+    color:white;
+
+    box-shadow:
+        4px 4px 0 var(--outline);
+
+    font-family:
+        Impact,
+        Arial Black,
+        sans-serif;
+
+    font-size:16px;
+
+    letter-spacing:1px;
+}
+
+.registrationTop{
+    margin:
+        8px 0 24px;
+}
+
+.registrationTop small{
+    color:#567;
+
+    font-size:8px;
+    font-weight:1000;
+
+    letter-spacing:1.3px;
+}
+
+.registrationTop h2{
+    margin:5px 0 0;
+
+    font-size:23px;
+
+    font-weight:1000;
+}
+
+.field{
+    margin-top:17px;
+}
+
+.field label{
+    display:block;
+
+    margin-bottom:7px;
+
+    color:#37445c;
+
+    font-size:9px;
+    font-weight:1000;
+
+    letter-spacing:1px;
+}
+
+.field input{
+    width:100%;
+
+    padding:13px;
+
+    border:
+        3px solid var(--outline);
+
+    border-radius:0;
+
+    background:white;
+
+    color:var(--ink);
+
+    font-family:inherit;
+    font-size:13px;
+
+    outline:none;
+
+    transition:.15s;
+}
+
+.field input:focus{
+    box-shadow:
+        4px 4px 0 var(--yellow);
+
+    transform:
+        translate(-2px,-2px);
+}
+
+.field input::placeholder{
+    color:#8791a3;
+}
+
+.fixedGrade{
+    margin-top:17px;
+
+    padding:12px 13px;
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    border:
+        3px solid var(--outline);
+
+    background:#e8f3ff;
+}
+
+.fixedGrade span:first-child{
+    color:#506078;
+
+    font-size:8px;
+    font-weight:1000;
+}
+
+.fixedGrade span:last-child{
+    color:var(--blue);
+
+    font-size:11px;
+    font-weight:1000;
+}
+
+.enterButton{
+    width:100%;
+
+    margin-top:22px;
+
+    padding:14px;
+
+    border:
+        3px solid var(--outline);
+
+    border-radius:0;
+
+    background:var(--red);
+
+    color:white;
+
+    box-shadow:
+        5px 5px 0 var(--outline);
+
+    font-family:inherit;
+
+    font-size:11px;
+    font-weight:1000;
+
+    letter-spacing:1px;
+
+    cursor:pointer;
+
+    transition:.15s;
+}
+
+.enterButton:hover{
+    transform:
+        translate(-2px,-2px);
+
+    box-shadow:
+        8px 8px 0 var(--outline);
+
+    background:#ff4857;
+}
+
+.entryReminder{
+    margin-top:17px;
+
+    color:#657189;
+
+    text-align:center;
+
+    font-size:10px;
+}
+
+
+/* =========================================================
+   DASHBOARD
+   ========================================================= */
+
+#dashboard{
+    display:none;
+
+    width:
+        min(1180px,calc(100% - 34px));
+
+    margin:auto;
+
+    padding:35px 0 80px;
+}
+
+.playerBar{
+    padding:15px 18px;
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    gap:20px;
+
+    border:
+        3px solid var(--outline);
+
+    background:#0e2c60;
+
+    box-shadow:
+        5px 5px 0 var(--outline);
+}
+
+.playerLeft{
+    display:flex;
+    align-items:center;
+    gap:13px;
+}
+
+.playerNumber{
+    width:43px;
+    height:43px;
+
+    display:grid;
+    place-items:center;
+
+    transform:rotate(-3deg);
+
+    border:
+        3px solid var(--outline);
+
+    background:var(--yellow);
+
+    color:var(--ink);
+
+    box-shadow:
+        3px 3px 0 var(--red);
+
+    font-family:
+        Consolas,
+        monospace;
+
+    font-size:11px;
+    font-weight:1000;
+}
+
+.playerInfo small{
+    display:block;
+
+    color:#84b7ff;
+
+    font-size:8px;
+    font-weight:1000;
+
+    letter-spacing:1px;
+}
+
+.playerInfo strong{
+    display:block;
+
+    margin-top:3px;
+
+    font-size:13px;
+}
+
+.playerInfo span{
+    display:block;
+
+    margin-top:2px;
+
+    color:#bdcce3;
+
+    font-size:10px;
+}
+
+.changePlayer{
+    padding:8px 11px;
+
+    border:
+        2px solid var(--outline);
+
+    background:var(--cream);
+
+    color:var(--ink);
+
+    box-shadow:
+        3px 3px 0 var(--outline);
+
+    font-family:inherit;
+
+    font-size:8px;
+    font-weight:1000;
+
+    cursor:pointer;
+}
+
+
+/* =========================================================
+   DASHBOARD HEADING
+   ========================================================= */
+
+.dashboardHeading{
+    margin:
+        43px 0 27px;
+}
+
+.dashboardHeading small{
+    display:inline-block;
+
+    padding:5px 9px;
+
+    transform:rotate(-1deg);
+
+    border:
+        2px solid var(--outline);
+
+    background:var(--red);
+
+    box-shadow:
+        3px 3px 0 var(--outline);
+
+    color:white;
+
+    font-size:8px;
+    font-weight:1000;
+
+    letter-spacing:1.3px;
+}
+
+.dashboardHeading h1{
+    margin:12px 0 6px;
+
+    font-size:33px;
+
+    font-weight:1000;
+}
+
+.dashboardHeading p{
+    margin:0;
+
+    color:#aebed8;
+
+    font-size:12px;
+}
+
+
+/* =========================================================
+   CURRENT GAME
+   ========================================================= */
+
+.currentGame{
+    min-height:285px;
+
+    padding:34px;
+
+    display:grid;
+
+    grid-template-columns:
+        1fr 300px;
+
+    gap:35px;
+
+    align-items:center;
+
+    position:relative;
+
+    overflow:hidden;
+
+    border:
+        4px solid var(--outline);
+
+    background:
+        linear-gradient(
+            125deg,
+            #1769ff,
+            #0c3980
+        );
+
+    box-shadow:
+        10px 10px 0 var(--outline);
+}
+
+.currentGame::before{
+    content:"01";
+
+    position:absolute;
+
+    right:-10px;
+    bottom:-60px;
+
+    color:
+        rgba(255,255,255,.08);
+
+    -webkit-text-stroke:
+        3px rgba(255,255,255,.06);
+
+    font-family:
+        Impact,
+        Arial Black,
+        sans-serif;
+
+    font-size:245px;
+
+    line-height:1;
+}
+
+.currentGame::after{
+    content:"SENSE → READ → DECIDE → ACT";
+
+    position:absolute;
+
+    left:33px;
+    bottom:14px;
+
+    color:
+        rgba(255,255,255,.45);
+
+    font-family:
+        Consolas,
+        monospace;
+
+    font-size:8px;
+    font-weight:900;
+
+    letter-spacing:2px;
+}
+
+.currentEyebrow{
+    width:max-content;
+
+    padding:6px 9px;
+
+    transform:rotate(-1deg);
+
+    border:
+        2px solid var(--outline);
+
+    background:var(--yellow);
+
+    color:var(--ink);
+
+    box-shadow:
+        3px 3px 0 var(--outline);
+
+    font-size:8px;
+    font-weight:1000;
+
+    letter-spacing:1.2px;
+}
+
+.currentGame h2{
+    margin:
+        17px 0 7px;
+
+    max-width:620px;
+
+    font-size:
+        clamp(27px,4vw,40px);
+
+    line-height:1;
+
+    font-weight:1000;
+
+    text-shadow:
+        3px 3px 0 rgba(0,0,0,.3);
+}
+
+.componentLine{
+    color:#d7e8ff;
+
+    font-size:12px;
+    font-weight:900;
+}
+
+.description{
+    max-width:650px;
+
+    margin-top:17px;
+
+    color:#d4e2f8;
+
+    font-size:12px;
+
+    line-height:1.65;
+}
+
+.gameStats{
+    margin-top:23px;
+
+    display:flex;
+    flex-wrap:wrap;
+
+    gap:10px;
+}
+
+.stat{
+    min-width:105px;
+
+    padding:10px 12px;
+
+    border:
+        2px solid var(--outline);
+
+    background:
+        rgba(6,20,47,.55);
+
+    box-shadow:
+        3px 3px 0 var(--outline);
+}
+
+.stat small{
+    display:block;
+
+    margin-bottom:4px;
+
+    color:#9fc6ff;
+
+    font-size:7px;
+    font-weight:1000;
+
+    letter-spacing:1px;
+}
+
+.stat strong{
+    font-size:10px;
+}
+
+.difficulty{
+    color:var(--yellow);
+}
+
+
+/* GAME TICKET */
+
+.currentAction{
+    padding:
+        30px 21px 22px;
+
+    position:relative;
+    z-index:2;
+
+    transform:rotate(1deg);
+
+    border:
+        4px solid var(--outline);
+
+    background:var(--cream);
+
+    color:var(--ink);
+
+    box-shadow:
+        7px 7px 0 var(--red);
+
+    text-align:center;
+}
+
+.currentAction::before{
+    content:"CURRENT CHALLENGE!";
+
+    position:absolute;
+
+    top:-17px;
+    left:50%;
+
+    padding:6px 9px;
+
+    transform:
+        translateX(-50%)
+        rotate(-2deg);
+
+    border:
+        3px solid var(--outline);
+
+    background:var(--yellow);
+
+    white-space:nowrap;
+
+    font-size:8px;
+    font-weight:1000;
+}
+
+.diamond{
+    margin-bottom:6px;
+
+    color:var(--red);
+
+    font-size:51px;
+
+    line-height:1;
+}
+
+.currentAction small{
+    display:block;
+
+    color:#667188;
+
+    font-size:8px;
+    font-weight:1000;
+}
+
+.currentAction strong{
+    display:block;
+
+    margin-top:5px;
+
+    font-size:11px;
+}
+
+.playCurrent{
+    width:100%;
+
+    margin-top:17px;
+
+    padding:12px;
+
+    border:
+        3px solid var(--outline);
+
+    background:var(--red);
+
+    color:white;
+
+    box-shadow:
+        4px 4px 0 var(--outline);
+
+    font-family:inherit;
+
+    font-size:9px;
+    font-weight:1000;
+
+    cursor:pointer;
+
+    transition:.15s;
+}
+
+.playCurrent:hover{
+    transform:
+        translate(-2px,-2px);
+
+    box-shadow:
+        6px 6px 0 var(--outline);
+}
+
+
+/* =========================================================
+   SECTIONS
+   ========================================================= */
+
+.arenaSection{
+    margin-top:55px;
+}
+
+.sectionHeader{
+    margin-bottom:20px;
+
+    display:flex;
+    align-items:flex-end;
+    justify-content:space-between;
+
+    gap:20px;
+}
+
+.sectionTitle small{
+    display:inline-block;
+
+    padding:5px 8px;
+
+    transform:rotate(-1deg);
+
+    border:
+        2px solid var(--outline);
+
+    background:var(--yellow);
+
+    color:var(--ink);
+
+    box-shadow:
+        3px 3px 0 var(--red);
+
+    font-size:8px;
+    font-weight:1000;
+}
+
+.sectionTitle h2{
+    margin:
+        11px 0 5px;
+
+    font-size:25px;
+}
+
+.sectionTitle p{
+    margin:0;
+
+    color:#adbed8;
+
+    font-size:11px;
+}
+
+.sectionRight{
+    color:#7991b7;
+
+    font-size:8px;
+    font-weight:900;
+}
+
+
+/* =========================================================
+   CORE ARENA
+   ========================================================= */
+
+.coreGrid{
+    display:grid;
+
+    grid-template-columns:
+        repeat(3,1fr);
+
+    gap:18px;
+}
+
+.coreCard{
+    min-height:255px;
+
+    padding:23px;
+
+    display:flex;
+    flex-direction:column;
+
+    position:relative;
+
+    overflow:hidden;
+
+    border:
+        4px solid var(--outline);
+
+    color:var(--ink);
+
+    box-shadow:
+        7px 7px 0 var(--outline);
+
+    transition:.18s;
+}
+
+.coreCard:nth-child(1){
+    background:#f8fbff;
+}
+
+.coreCard:nth-child(2){
+    background:var(--yellow);
+}
+
+.coreCard:nth-child(3){
+    background:#fff8e9;
+}
+
+.coreCard:hover{
+    transform:
+        translate(-3px,-3px);
+
+    box-shadow:
+        10px 10px 0 var(--outline);
+}
+
+
+/* COMIC BACKGROUND SYMBOLS */
+
+.coreCard:nth-child(1)::after{
+    content:"</>";
+
+    position:absolute;
+
+    right:-5px;
+    top:76px;
+
+    color:
+        rgba(23,105,255,.09);
+
+    font-family:
+        Consolas,
+        monospace;
+
+    font-size:64px;
+    font-weight:1000;
+}
+
+.coreCard:nth-child(2)::after{
+    content:"●──●";
+
+    position:absolute;
+
+    right:8px;
+    top:84px;
+
+    color:
+        rgba(8,16,31,.10);
+
+    font-family:
+        Consolas,
+        monospace;
+
+    font-size:26px;
+    font-weight:1000;
+}
+
+.coreCard:nth-child(3)::after{
+    content:"?";
+
+    position:absolute;
+
+    right:18px;
+    top:47px;
+
+    color:
+        rgba(242,56,70,.08);
+
+    font-family:
+        Impact,
+        Arial Black,
+        sans-serif;
+
+    font-size:115px;
+}
+
+.coreTop{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    position:relative;
+    z-index:2;
+}
+
+.suit{
+    font-size:34px;
+    line-height:1;
+}
+
+.diamondSuit,
+.heartSuit{
+    color:var(--red);
+}
+
+.clubSuit{
+    color:var(--blue);
+}
+
+.openBadge{
+    padding:5px 7px;
+
+    transform:rotate(2deg);
+
+    border:
+        2px solid var(--outline);
+
+    background:var(--red);
+
+    color:white;
+
+    box-shadow:
+        2px 2px 0 var(--outline);
+
+    font-size:7px;
+    font-weight:1000;
+}
+
+.coreCard h3{
+    margin:
+        25px 0 5px;
+
+    position:relative;
+    z-index:2;
+
+    font-size:19px;
+    font-weight:1000;
+}
+
+.coreSubtitle{
+    position:relative;
+    z-index:2;
+
+    color:#52637f;
+
+    font-size:9px;
+    font-weight:1000;
+}
+
+.coreDescription{
+    margin:
+        14px 0 20px;
+
+    position:relative;
+    z-index:2;
+
+    color:#46536a;
+
+    font-size:11px;
+
+    line-height:1.55;
+}
+
+.coreFooter{
+    margin-top:auto;
+
+    padding-top:14px;
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    gap:10px;
+
+    position:relative;
+    z-index:2;
+
+    border-top:
+        2px solid rgba(8,16,31,.13);
+}
+
+.coreFooter span{
+    color:#637088;
+
+    font-size:8px;
+}
+
+.corePlay{
+    padding:7px 9px;
+
+    border:
+        2px solid var(--outline);
+
+    background:var(--blue);
+
+    color:white;
+
+    box-shadow:
+        2px 2px 0 var(--outline);
+
+    font-family:inherit;
+
+    font-size:8px;
+    font-weight:1000;
+
+    cursor:pointer;
+}
+
+
+/* =========================================================
+   WEEKLY GAMES
+   ========================================================= */
+
+.gameList{
+    display:flex;
+    flex-direction:column;
+
+    gap:13px;
+}
+
+.gameRow{
+    min-height:96px;
+
+    padding:15px 18px;
+
+    display:grid;
+
+    grid-template-columns:
+        68px 1fr 180px 110px;
+
+    gap:18px;
+
+    align-items:center;
+
+    position:relative;
+
+    border:
+        3px solid var(--outline);
+
+    background:#102b5c;
+
+    box-shadow:
+        5px 5px 0 var(--outline);
+
+    transition:.16s;
+}
+
+.gameRow.available{
+    cursor:pointer;
+}
+
+.gameRow.available:hover{
+    transform:
+        translate(-2px,-2px);
+
+    box-shadow:
+        8px 8px 0 var(--outline);
+
+    background:#153a7b;
+}
+
+.gameRow.locked{
+    opacity:.56;
+}
+
+.gameRow.cleared{
+    background:#123f54;
+}
+
+.gameNumber{
+    height:58px;
+
+    display:grid;
+    place-items:center;
+
+    transform:rotate(-2deg);
+
+    border:
+        3px solid var(--outline);
+
+    background:var(--yellow);
+
+    color:var(--ink);
+
+    box-shadow:
+        3px 3px 0 var(--red);
+
+    font-family:
+        Impact,
+        Arial Black,
+        sans-serif;
+
+    font-size:18px;
+}
+
+.gameRow.locked .gameNumber{
+    background:#62728b;
+
+    box-shadow:
+        3px 3px 0 #202c40;
+}
+
+.gameInfo h3{
+    margin:0 0 5px;
+
+    font-size:14px;
+}
+
+.gameInfo p{
+    margin:0;
+
+    color:#a9c5ee;
+
+    font-size:10px;
+}
+
+.gameConcept{
+    color:#9db3d4;
+
+    font-size:9px;
+
+    line-height:1.5;
+}
+
+.gameStatus{
+    justify-self:end;
+
+    padding:7px 8px;
+
+    border:
+        2px solid var(--outline);
+
+    box-shadow:
+        2px 2px 0 var(--outline);
+
+    font-size:7px;
+    font-weight:1000;
+
+    letter-spacing:.7px;
+}
+
+.gameStatus.available{
+    background:var(--yellow);
+
+    color:var(--ink);
+}
+
+.gameStatus.locked{
+    background:#68758a;
+
+    color:white;
+}
+
+.gameStatus.cleared{
+    background:var(--green);
+
+    color:var(--ink);
+}
+
+
+/* =========================================================
+   MODAL
+   ========================================================= */
+
+.overlay{
+    position:fixed;
+    inset:0;
+
+    z-index:200;
+
+    display:none;
+    align-items:center;
+    justify-content:center;
+
+    padding:20px;
+
+    background:
+        rgba(3,9,22,.84);
+
+    backdrop-filter:
+        blur(5px);
+}
+
+.modal{
+    width:min(650px,100%);
+
+    max-height:91vh;
+
+    overflow:auto;
+
+    border:
+        4px solid var(--outline);
+
+    background:var(--cream);
+
+    color:var(--ink);
+
+    box-shadow:
+        12px 12px 0 var(--red);
+}
+
+.modalHeader{
+    min-height:57px;
+
+    padding:
+        0 14px 0 19px;
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    border-bottom:
+        4px solid var(--outline);
+
+    background:var(--blue);
+
+    color:white;
+}
+
+.modalHeader span{
+    font-size:9px;
+    font-weight:1000;
+
+    letter-spacing:1.2px;
+}
+
+.closeButton{
+    width:34px;
+    height:34px;
+
+    display:grid;
+    place-items:center;
+
+    border:
+        3px solid var(--outline);
+
+    background:var(--yellow);
+
+    color:var(--ink);
+
+    box-shadow:
+        2px 2px 0 var(--outline);
+
+    font-size:21px;
+    font-weight:1000;
+
+    cursor:pointer;
+}
+
+.modalBody{
+    padding:28px;
+}
+
+.modalSuit{
+    color:var(--red);
+
+    font-size:43px;
+}
+
+.modalLabel{
+    width:max-content;
+
+    margin-top:11px;
+
+    padding:4px 7px;
+
+    border:
+        2px solid var(--outline);
+
+    background:var(--yellow);
+
+    font-size:8px;
+    font-weight:1000;
+}
+
+.modalBody h2{
+    margin:
+        9px 0 4px;
+
+    font-size:27px;
+}
+
+.modalSub{
+    color:#56647b;
+
+    font-size:11px;
+    font-weight:900;
+}
+
+.modalDescription{
+    margin-top:18px;
+
+    color:#46536a;
+
+    font-size:12px;
+
+    line-height:1.65;
+}
+
+.modalFooter{
+    padding:15px 20px;
+
+    display:flex;
+    justify-content:flex-end;
+
+    gap:9px;
+
+    border-top:
+        3px solid var(--outline);
+
+    background:#e8f1ff;
+}
+
+.secondaryButton,
+.primaryButton{
+    padding:10px 14px;
+
+    border:
+        3px solid var(--outline);
+
+    box-shadow:
+        3px 3px 0 var(--outline);
+
+    font-family:inherit;
+
+    font-size:8px;
+    font-weight:1000;
+
+    cursor:pointer;
+}
+
+.secondaryButton{
+    background:white;
+
+    color:var(--ink);
+}
+
+.primaryButton{
+    background:var(--red);
+
+    color:white;
+}
+
+
+/* =========================================================
+   QUIZ
+   ========================================================= */
+
+.quizTop{
+    margin-bottom:22px;
+
+    display:flex;
+    justify-content:space-between;
+
+    gap:15px;
+}
+
+.quizCounter{
+    padding:5px 8px;
+
+    border:
+        2px solid var(--outline);
+
+    background:var(--yellow);
+
+    box-shadow:
+        2px 2px 0 var(--outline);
+
+    font-size:8px;
+    font-weight:1000;
+}
+
+.quizScore{
+    padding:5px 8px;
+
+    border:
+        2px solid var(--outline);
+
+    background:var(--blue);
+
+    color:white;
+
+    box-shadow:
+        2px 2px 0 var(--outline);
+
+    font-size:8px;
+    font-weight:1000;
+}
+
+.progressTrack{
+    height:10px;
+
+    margin-bottom:25px;
+
+    overflow:hidden;
+
+    border:
+        2px solid var(--outline);
+
+    background:white;
+}
+
+.progressFill{
+    height:100%;
+
+    background:
+        linear-gradient(
+            90deg,
+            var(--blue),
+            var(--yellow),
+            var(--red)
+        );
+
+    transition:.3s;
+}
+
+.questionType{
+    width:max-content;
+
+    margin-bottom:10px;
+
+    padding:5px 7px;
+
+    transform:rotate(-1deg);
+
+    background:var(--red);
+
+    color:white;
+
+    border:
+        2px solid var(--outline);
+
+    box-shadow:
+        2px 2px 0 var(--outline);
+
+    font-size:8px;
+    font-weight:1000;
+}
+
+.questionText{
+    margin:
+        0 0 21px;
+
+    font-size:20px;
+
+    line-height:1.4;
+}
+
+.codeBlock{
+    margin:
+        0 0 20px;
+
+    padding:16px;
+
+    overflow:auto;
+
+    border:
+        3px solid var(--outline);
+
+    background:#08152e;
+
+    color:#f9e990;
+
+    box-shadow:
+        4px 4px 0 var(--blue);
+
+    font-family:
+        Consolas,
+        monospace;
+
+    font-size:11px;
+
+    line-height:1.6;
+
+    white-space:pre-wrap;
+}
+
+.answers{
+    display:grid;
+    gap:9px;
+}
+
+.answerButton{
+    width:100%;
+
+    padding:12px 13px;
+
+    display:flex;
+    align-items:center;
+
+    gap:11px;
+
+    border:
+        3px solid var(--outline);
+
+    background:white;
+
+    color:var(--ink);
+
+    box-shadow:
+        3px 3px 0 var(--outline);
+
+    font-family:inherit;
+
+    font-size:11px;
+
+    text-align:left;
+
+    cursor:pointer;
+
+    transition:.13s;
+}
+
+.answerButton:hover{
+    transform:
+        translate(-2px,-2px);
+
+    box-shadow:
+        5px 5px 0 var(--outline);
+
+    background:#eef6ff;
+}
+
+.answerLetter{
+    width:27px;
+    height:27px;
+
+    flex:0 0 27px;
+
+    display:grid;
+    place-items:center;
+
+    border:
+        2px solid var(--outline);
+
+    background:var(--yellow);
+
+    color:var(--ink);
+
+    font-size:9px;
+    font-weight:1000;
+}
+
+.answerButton.correct{
+    background:#bff4d6;
+}
+
+.answerButton.wrong{
+    background:#ffd1d5;
+}
+
+.feedback{
+    display:none;
+
+    margin-top:19px;
+
+    padding:14px;
+
+    position:relative;
+
+    border:
+        3px solid var(--outline);
+
+    background:#fff2b8;
+
+    box-shadow:
+        4px 4px 0 var(--outline);
+
+    color:#303a4d;
+
+    font-size:11px;
+
+    line-height:1.55;
+}
+
+.feedback.correct{
+    background:#c9f6dd;
+}
+
+.feedback.wrong{
+    background:#ffe2b6;
+}
+
+.nextButton{
+    display:none;
+
+    width:100%;
+
+    margin-top:16px;
+
+    padding:12px;
+
+    border:
+        3px solid var(--outline);
+
+    background:var(--red);
+
+    color:white;
+
+    box-shadow:
+        4px 4px 0 var(--outline);
+
+    font-family:inherit;
+
+    font-size:9px;
+    font-weight:1000;
+
+    cursor:pointer;
+}
+
+
+/* =========================================================
+   RESULT
+   ========================================================= */
+
+.result{
+    padding:12px 0;
+
+    text-align:center;
+}
+
+.resultSymbol{
+    color:var(--red);
+
+    font-size:66px;
+
+    line-height:1;
+}
+
+.resultLabel{
+    width:max-content;
+
+    margin:
+        15px auto 0;
+
+    padding:6px 10px;
+
+    transform:rotate(-2deg);
+
+    border:
+        3px solid var(--outline);
+
+    background:var(--yellow);
+
+    box-shadow:
+        3px 3px 0 var(--red);
+
+    font-size:10px;
+    font-weight:1000;
+
+    letter-spacing:1px;
+}
+
+.result h2{
+    margin:
+        13px 0 5px;
+
+    font-size:30px;
+}
+
+.resultScore{
+    margin:22px 0;
+
+    color:var(--blue);
+
+    font-family:
+        Impact,
+        Arial Black,
+        sans-serif;
+
+    font-size:57px;
+}
+
+.resultScore span{
+    color:var(--red);
+}
+
+.resultText{
+    max-width:450px;
+
+    margin:auto;
+
+    color:#536078;
+
+    font-size:12px;
+
+    line-height:1.65;
+}
+
+.unlockBox{
+    margin-top:23px;
+
+    padding:14px;
+
+    border:
+        3px solid var(--outline);
+
+    background:var(--yellow);
+
+    box-shadow:
+        4px 4px 0 var(--red);
+
+    color:var(--ink);
+
+    font-size:10px;
+
+    line-height:1.5;
+}
+
+
+/* =========================================================
+   COMIC REMINDER SPEECH BUBBLE
+   ========================================================= */
+
+#arenaBubble{
+    width:
+        min(355px,calc(100% - 34px));
+
+    position:fixed;
+
+    right:30px;
+    bottom:32px;
+
+    z-index:400;
+
+    padding:
+        18px 47px 18px 19px;
+
+    border:
+        4px solid var(--outline);
+
+    border-radius:
+        22px 22px 5px 22px;
+
+    background:var(--cream);
+
+    color:var(--ink);
+
+    box-shadow:
+        7px 7px 0 var(--red);
+
+    opacity:0;
+
+    transform:
+        translateY(35px)
+        rotate(2deg)
+        scale(.92);
+
+    pointer-events:none;
+
+    transition:
+        .28s cubic-bezier(.2,.8,.2,1.2);
+}
+
+
+/* speech bubble tail */
+
+#arenaBubble::after{
+    content:"";
+
+    position:absolute;
+
+    right:20px;
+    bottom:-21px;
+
+    width:24px;
+    height:24px;
+
+    background:var(--cream);
+
+    border-right:
+        4px solid var(--outline);
+
+    border-bottom:
+        4px solid var(--outline);
+
+    transform:
+        skewY(35deg)
+        rotate(20deg);
+}
+
+#arenaBubble.show{
+    opacity:1;
+
+    transform:
+        translateY(0)
+        rotate(-1deg)
+        scale(1);
+
+    pointer-events:auto;
+}
+
+.bubbleLabel{
+    width:max-content;
+
+    padding:4px 7px;
+
+    transform:rotate(-2deg);
+
+    border:
+        2px solid var(--outline);
+
+    background:var(--yellow);
+
+    box-shadow:
+        2px 2px 0 var(--red);
+
+    color:var(--ink);
+
+    font-size:7px;
+    font-weight:1000;
+
+    letter-spacing:1px;
+}
+
+.bubbleTitle{
+    margin-top:9px;
+
+    color:var(--blue);
+
+    font-family:
+        Impact,
+        Arial Black,
+        sans-serif;
+
+    font-size:21px;
+
+    letter-spacing:.5px;
+}
+
+.bubbleText{
+    margin-top:5px;
+
+    color:#4d5b72;
+
+    font-size:10px;
+
+    line-height:1.5;
+}
+
+.bubbleClose{
+    width:27px;
+    height:27px;
+
+    position:absolute;
+
+    top:10px;
+    right:10px;
+
+    display:grid;
+    place-items:center;
+
+    padding:0;
+
+    border:
+        2px solid var(--outline);
+
+    border-radius:50%;
+
+    background:var(--red);
+
+    color:white;
+
+    font-weight:1000;
+
+    cursor:pointer;
+}
+
+
+/* =========================================================
+   COMIC DECORATIONS
+   ========================================================= */
+
+.comicPop{
+    position:fixed;
+
+    z-index:0;
+
+    pointer-events:none;
+
+    user-select:none;
+
+    font-family:
+        Impact,
+        Arial Black,
+        sans-serif;
+
+    opacity:.14;
+}
+
+.popCode{
+    left:1%;
+    top:34%;
+
+    color:var(--yellow);
+
+    font-size:47px;
+
+    transform:rotate(-13deg);
+}
+
+.popGo{
+    right:1%;
+    top:54%;
+
+    color:var(--red);
+
+    font-size:55px;
+
+    transform:rotate(12deg);
+}
+
+.popCircuit{
+    left:2%;
+    bottom:8%;
+
+    color:#5db4ff;
+
+    font-family:
+        Consolas,
+        monospace;
+
+    font-size:23px;
+
+    transform:rotate(-5deg);
+}
+
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
+
+.footer{
+    margin-top:65px;
+
+    padding:25px 0 5px;
+
+    display:flex;
+    justify-content:space-between;
+
+    gap:20px;
+
+    border-top:
+        2px solid rgba(255,255,255,.15);
+
+    color:#7891b9;
+
+    font-size:8px;
+    font-weight:900;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media(max-width:900px){
+
+    .entryWrap{
+        grid-template-columns:1fr;
+
+        gap:50px;
+    }
+
+    .hero{
+        text-align:center;
+    }
+
+    .heroLabel{
+        margin-left:auto;
+        margin-right:auto;
+    }
+
+    .heroText{
+        margin-left:auto;
+        margin-right:auto;
+
+        border-left:0;
+    }
+
+    .heroMeta{
+        justify-content:center;
+    }
+
+    .registration{
+        max-width:520px;
+
+        margin:auto;
+    }
+
+    .currentGame{
+        grid-template-columns:1fr;
+    }
+
+    .coreGrid{
+        grid-template-columns:1fr;
+    }
+
+    .gameRow{
+        grid-template-columns:
+            60px 1fr 110px;
+    }
+
+    .gameConcept{
+        display:none;
+    }
+
+    .comicPop{
+        display:none;
+    }
+
+}
+
+
+@media(max-width:600px){
+
+    .topbar{
+        padding:0 14px;
+    }
+
+    .brandSub{
+        display:none;
+    }
+
+    .brandName{
+        font-size:12px;
+    }
+
+    .gradeTag{
+        font-size:8px;
+    }
+
+    #entryScreen{
+        padding-top:55px;
+    }
+
+    .hero h1{
+        font-size:52px;
+    }
+
+    .registration::after{
+        right:-5px;
+    }
+
+    .currentGame{
+        padding:24px;
+    }
+
+    .currentGame::after{
+        display:none;
+    }
+
+    .gameRow{
+        grid-template-columns:
+            48px 1fr;
+    }
+
+    .gameStatus{
+        grid-column:2;
+
+        justify-self:start;
+    }
+
+    .sectionHeader{
+        flex-direction:column;
+
+        align-items:flex-start;
+    }
+
+    #arenaBubble{
+        right:17px;
+        bottom:24px;
+    }
+
+    .footer{
+        flex-direction:column;
+    }
+
+}
+
+</style>
+</head>
+
+<body>
+
+
+<!-- COMIC BACKGROUND DETAILS -->
+
+<div
+    class="comicPop popCode"
+    aria-hidden="true"
+>
+    CODE!
+</div>
+
+<div
+    class="comicPop popGo"
+    aria-hidden="true"
+>
+    GO!
+</div>
+
+<div
+    class="comicPop popCircuit"
+    aria-hidden="true"
+>
+    ●──●──●
+</div>
+
+
+<!-- =====================================================
+     HEADER
+     ===================================================== -->
+
+<header class="topbar">
+
+    <div class="brand">
+
+        <div class="brandMark">
+            &lt;/&gt;
+        </div>
+
+        <div>
+
+            <div class="brandName">
+                ROBOTICS CODE ARENA
+            </div>
+
+            <div class="brandSub">
+                GRADE 8 PRACTICE SYSTEM
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="gradeTag">
+        GRADE 8
+    </div>
+
+</header>
+
+
+<div class="noticeBar">
+
+    <span class="noticePrefix">
+        ARENA NEWS!
+    </span>
+
+    <span id="noticeText">
+        Practice mode only — mistakes are part of learning!
+    </span>
+
+</div>
+
+
+<!-- =====================================================
+     ENTRY SCREEN
+     ===================================================== -->
+
+<section id="entryScreen">
+
+    <div class="entryWrap">
+
+
+        <div class="hero">
+
+            <div class="heroLabel">
+                ★ GRADE 8 ROBOTICS ★
+            </div>
+
+            <h1>
+                ROBOTICS<br>
+                <span>CODE ARENA!</span>
+            </h1>
+
+            <p class="heroText">
+                Enter a world of coding, circuits, sensors,
+                and Robotics challenges. Practice what you
+                learned, clear weekly games, and prepare
+                yourself for the next mission!
+            </p>
+
+
+            <div class="heroMeta">
+
+                <span>ARDUINO</span>
+                <span>CODING</span>
+                <span>CIRCUITS</span>
+                <span>SENSORS</span>
+                <span>LOGIC</span>
+
+            </div>
+
+        </div>
+
+
+        <div class="registration">
+
+            <div class="registrationTop">
+
+                <small>
+                    PLAYER ACCESS
+                </small>
+
+                <h2>
+                    Enter the Arena
+                </h2>
+
+            </div>
+
+
+            <div class="field">
+
+                <label>
+                    STUDENT NAME
+                </label>
+
+                <input
+                    id="studentName"
+                    type="text"
+                    placeholder="Enter your full name"
+                    autocomplete="off"
+                >
+
+            </div>
+
+
+            <div class="field">
+
+                <label>
+                    SECTION
+                </label>
+
+                <input
+                    id="studentSection"
+                    type="text"
+                    placeholder="Enter your section"
+                    autocomplete="off"
+                >
+
+            </div>
+
+
+            <div class="fixedGrade">
+
+                <span>
+                    GRADE LEVEL
+                </span>
+
+                <span>
+                    GRADE 8
+                </span>
+
+            </div>
+
+
+            <button
+                class="enterButton"
+                onclick="enterArena()"
+            >
+                LET'S GO! →
+            </button>
+
+
+            <div class="entryReminder">
+                Practice only • Not graded • Unlimited attempts
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     DASHBOARD
+     ===================================================== -->
+
+<main id="dashboard">
+
+
+    <section class="playerBar">
+
+        <div class="playerLeft">
+
+            <div class="playerNumber">
+                P8
+            </div>
+
+            <div class="playerInfo">
+
+                <small>
+                    ACTIVE PLAYER
+                </small>
+
+                <strong id="displayName">
+                    Student
+                </strong>
+
+                <span id="displayDetails">
+                    Grade 8
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <button
+            class="changePlayer"
+            onclick="changePlayer()"
+        >
+            CHANGE PLAYER
+        </button>
+
+    </section>
+
+
+    <section class="dashboardHeading">
+
+        <small>
+            ★ ARENA LOBBY ★
+        </small>
+
+        <h1 id="welcomeHeading">
+            Ready for a challenge?
+        </h1>
+
+        <p>
+            Pick a practice category or enter your current weekly game.
+        </p>
+
+    </section>
+
+
+    <!-- CURRENT GAME -->
+
+    <section class="currentGame">
+
+        <div>
+
+            <div class="currentEyebrow">
+                GAME #01 • NOW AVAILABLE!
+            </div>
+
+            <h2>
+                Environmental Monitoring
+            </h2>
+
+            <div class="componentLine">
+                DHT11 + MQ135
+            </div>
+
+            <p class="description">
+                Practice temperature, humidity, air quality,
+                sensor readings, Serial Monitor, and simple
+                Arduino decision-making.
+            </p>
+
+
+            <div class="gameStats">
+
+                <div class="stat">
+
+                    <small>
+                        DIFFICULTY
+                    </small>
+
+                    <strong class="difficulty">
+                        ★ EASY
+                    </strong>
+
+                </div>
+
+
+                <div class="stat">
+
+                    <small>
+                        QUESTIONS
+                    </small>
+
+                    <strong>
+                        5 ITEMS
+                    </strong>
+
+                </div>
+
+
+                <div class="stat">
+
+                    <small>
+                        GAME CLEAR
+                    </small>
+
+                    <strong>
+                        3 / 5
+                    </strong>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="currentAction">
+
+            <div class="diamond">
+                ♦
+            </div>
+
+            <small>
+                WEEK 01
+            </small>
+
+            <strong>
+                ENVIRONMENTAL MONITORING
+            </strong>
+
+            <button
+                class="playCurrent"
+                onclick="startWeeklyGame(1)"
+            >
+                PLAY NOW! →
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- =================================================
+         CORE ARENA
+         ================================================= -->
+
+    <section class="arenaSection">
+
+        <div class="sectionHeader">
+
+            <div class="sectionTitle">
+
+                <small>
+                    ALWAYS OPEN!
+                </small>
+
+                <h2>
+                    Core Arena
+                </h2>
+
+                <p>
+                    Quick practice challenges you can play anytime.
+                </p>
+
+            </div>
+
+            <div class="sectionRight">
+                3 PRACTICE MODES
+            </div>
+
+        </div>
+
+
+        <div class="coreGrid">
+
+
+            <!-- CODE QUEST -->
+
+            <article class="coreCard">
+
+                <div class="coreTop">
+
+                    <div class="suit diamondSuit">
+                        ♦
+                    </div>
+
+                    <div class="openBadge">
+                        PLAY!
+                    </div>
+
+                </div>
+
+                <h3>
+                    Code Quest
+                </h3>
+
+                <div class="coreSubtitle">
+                    ARDUINO PROGRAMMING
+                </div>
+
+                <p class="coreDescription">
+                    Read Arduino code, identify commands,
+                    understand simple conditions, predict
+                    outputs, and practice basic debugging.
+                </p>
+
+                <div class="coreFooter">
+
+                    <span>
+                        5 random questions
+                    </span>
+
+                    <button
+                        class="corePlay"
+                        onclick="startCoreGame('code')"
+                    >
+                        START →
+                    </button>
+
+                </div>
+
+            </article>
+
+
+            <!-- CIRCUIT QUEST -->
+
+            <article class="coreCard">
+
+                <div class="coreTop">
+
+                    <div class="suit clubSuit">
+                        ♣
+                    </div>
+
+                    <div class="openBadge">
+                        PLAY!
+                    </div>
+
+                </div>
+
+                <h3>
+                    Circuit Quest
+                </h3>
+
+                <div class="coreSubtitle">
+                    CIRCUITS & COMPONENTS
+                </div>
+
+                <p class="coreDescription">
+                    Review sensors, LEDs, Arduino pins,
+                    input and output devices, and common
+                    Robotics components.
+                </p>
+
+                <div class="coreFooter">
+
+                    <span>
+                        5 random questions
+                    </span>
+
+                    <button
+                        class="corePlay"
+                        onclick="startCoreGame('circuit')"
+                    >
+                        START →
+                    </button>
+
+                </div>
+
+            </article>
+
+
+            <!-- ROBO RECALL -->
+
+            <article class="coreCard">
+
+                <div class="coreTop">
+
+                    <div class="suit heartSuit">
+                        ♥
+                    </div>
+
+                    <div class="openBadge">
+                        PLAY!
+                    </div>
+
+                </div>
+
+                <h3>
+                    Robo Recall
+                </h3>
+
+                <div class="coreSubtitle">
+                    CONCEPTS & TERMINOLOGY
+                </div>
+
+                <p class="coreDescription">
+                    Test your memory of sensors,
+                    system concepts, input-process-output,
+                    and important Grade 8 Robotics terms.
+                </p>
+
+                <div class="coreFooter">
+
+                    <span>
+                        5 random questions
+                    </span>
+
+                    <button
+                        class="corePlay"
+                        onclick="startCoreGame('recall')"
+                    >
+                        START →
+                    </button>
+
+                </div>
+
+            </article>
+
+        </div>
+
+    </section>
+
+
+    <!-- =================================================
+         WEEKLY GAMES
+         ================================================= -->
+
+    <section class="arenaSection">
+
+        <div class="sectionHeader">
+
+            <div class="sectionTitle">
+
+                <small>
+                    GAME SELECT
+                </small>
+
+                <h2>
+                    Weekly Games
+                </h2>
+
+                <p>
+                    Clear each weekly challenge to unlock the next game.
+                </p>
+
+            </div>
+
+            <div class="sectionRight">
+                7 GAMES
+            </div>
+
+        </div>
+
+
+        <div
+            class="gameList"
+            id="gameList"
+        >
+        </div>
+
+    </section>
+
+
+    <footer class="footer">
+
+        <span>
+            ROBOTICS CODE ARENA • GRADE 8
+        </span>
+
+        <span>
+            PRACTICE • LEARN • TRY AGAIN
+        </span>
+
+    </footer>
+
+</main>
+
+
+<!-- =====================================================
+     GAME MODAL
+     ===================================================== -->
+
+<div
+    class="overlay"
+    id="gameOverlay"
+    onclick="overlayClose(event)"
+>
+
+    <div class="modal">
+
+        <div class="modalHeader">
+
+            <span id="modalHeaderText">
+                ROBOTICS CODE ARENA
+            </span>
+
+            <button
+                class="closeButton"
+                onclick="closeGame()"
+                aria-label="Close"
+            >
+                ×
+            </button>
+
+        </div>
+
+
+        <div
+            class="modalBody"
+            id="modalBody"
+        >
+        </div>
+
+
+        <div
+            class="modalFooter"
+            id="modalFooter"
+        >
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     COMIC REMINDER BUBBLE
+     ===================================================== -->
+
+<div id="arenaBubble">
+
+    <button
+        class="bubbleClose"
+        onclick="hideBubble()"
+        aria-label="Close reminder"
+    >
+        ×
+    </button>
+
+    <div
+        class="bubbleLabel"
+        id="bubbleLabel"
+    >
+        ARENA TIP!
+    </div>
+
+    <div
+        class="bubbleTitle"
+        id="bubbleTitle"
+    >
+        ARE YOU READY?
+    </div>
+
+    <div
+        class="bubbleText"
+        id="bubbleText"
+    >
+        Your challenge is waiting!
+    </div>
+
+</div>
+
+
+<script>
+
+/* =========================================================
+   BASIC CONFIG
+   ========================================================= */
+
+const PASS_SCORE = 3;
+const QUESTIONS_PER_GAME = 5;
+
+let activeQuestions = [];
+let currentQuestion = 0;
+let currentScore = 0;
+let answerLocked = false;
+let activeGame = null;
+let bubbleTimer = null;
+
+
+/* =========================================================
+   WEEKLY GAME MAP
+   ========================================================= */
+
+const weeklyGames = [
+
+    {
+        id:1,
+        suit:"♦",
+        title:"Environmental Monitoring",
+        components:"DHT11 + MQ135",
+        concepts:
+            "Temperature • Humidity • Air Quality • Sensor Readings"
+    },
+
+    {
+        id:2,
+        suit:"♣",
+        title:"Smart Motion Alarm",
+        components:"PIR + Buzzer + LED",
+        concepts:
+            "Motion Detection • Digital Input • Alarm Output"
+    },
+
+    {
+        id:3,
+        suit:"♥",
+        title:"Password Door Lock",
+        components:"Keypad + LCD + Stepper",
+        concepts:
+            "User Input • Password Checking • Motor Control"
+    },
+
+    {
+        id:4,
+        suit:"♠",
+        title:"RFID Access Control",
+        components:"RFID + Stepper + LEDs",
+        concepts:
+            "UID • Authentication • Access Control"
+    },
+
+    {
+        id:5,
+        suit:"◆",
+        title:"System Integration Challenge",
+        components:"Selected Components",
+        concepts:
+            "Sensors • Input • Process • Output"
+    },
+
+    {
+        id:6,
+        suit:"◆",
+        title:"Performance Task Development",
+        components:"Multiple Components",
+        concepts:
+            "Design • Build • Code • Test"
+    },
+
+    {
+        id:7,
+        suit:"★",
+        title:"Final Arena",
+        components:"PT Demo + Summative / Oral",
+        concepts:
+            "Demonstration • Explanation • Understanding"
+    }
+
+];
+
+
+/* =========================================================
+   GAME 01 — ENVIRONMENTAL MONITORING
+   ========================================================= */
+
+const week1Questions = [
+
+    {
+        type:"SENSOR CHECK!",
+        question:
+            "Which sensor measures temperature and humidity?",
+
+        choices:[
+            "DHT11",
+            "MQ135",
+            "LED",
+            "Buzzer"
+        ],
+
+        answer:0,
+
+        explanation:
+            "The DHT11 measures temperature and humidity."
+    },
+
+
+    {
+        type:"SENSOR CHECK!",
+        question:
+            "Which sensor is used to detect changes related to air quality?",
+
+        choices:[
+            "Push button",
+            "DHT11",
+            "MQ135",
+            "LED"
+        ],
+
+        answer:2,
+
+        explanation:
+            "The MQ135 is used for air-quality sensing."
+    },
+
+
+    {
+        type:"CODE CHECK!",
+        question:
+            "Which command reads the analog sensor connected to A0?",
+
+        code:
+`airValue = ________;`,
+
+        choices:[
+            "digitalWrite(A0)",
+            "analogRead(A0)",
+            "Serial.println(A0)",
+            "pinMode(A0)"
+        ],
+
+        answer:1,
+
+        explanation:
+            "analogRead(A0) reads the analog value from pin A0."
+    },
+
+
+    {
+        type:"READ THE CODE!",
+        question:
+            "What happens when airValue is greater than 300?",
+
+        code:
+`if (airValue > 300) {
+    digitalWrite(redLED, HIGH);
+}
+else {
+    digitalWrite(redLED, LOW);
+}`,
+
+        choices:[
+            "The red LED turns ON",
+            "The red LED turns OFF",
+            "The Arduino stops",
+            "The sensor turns OFF"
+        ],
+
+        answer:0,
+
+        explanation:
+            "The condition sends HIGH to the red LED, so the red LED turns ON."
+    },
+
+
+    {
+        type:"LOGIC CHECK!",
+        question:
+            "Which programming statement allows Arduino to choose between two actions?",
+
+        choices:[
+            "delay()",
+            "if / else",
+            "pinMode()",
+            "Serial.begin()"
+        ],
+
+        answer:1,
+
+        explanation:
+            "if / else lets Arduino make a decision based on a condition."
+    },
+
+
+    {
+        type:"CODE CHECK!",
+        question:
+            "What is the purpose of Serial.println()?",
+
+        choices:[
+            "Turn on an LED",
+            "Read temperature only",
+            "Display information in the Serial Monitor",
+            "Connect a sensor"
+        ],
+
+        answer:2,
+
+        explanation:
+            "Serial.println() displays or sends information to the Serial Monitor."
+    },
+
+
+    {
+        type:"SENSOR CHECK!",
+        question:
+            "What does DHT.read11(DHT_PIN) tell the Arduino to do?",
+
+        choices:[
+            "Read the DHT11 sensor",
+            "Turn on the DHT11",
+            "Read the MQ135",
+            "Turn on an LED"
+        ],
+
+        answer:0,
+
+        explanation:
+            "DHT.read11(DHT_PIN) reads information from the DHT11 sensor."
+    },
+
+
+    {
+        type:"SYSTEM CHECK!",
+        question:
+            "Which sequence best describes how the monitoring system works?",
+
+        choices:[
+            "Act → Decide → Read → Sense",
+            "Sense → Read → Decide → Act",
+            "Read → Act → Sense → Decide",
+            "Decide → Sense → Act → Read"
+        ],
+
+        answer:1,
+
+        explanation:
+            "The system senses information, reads it, decides what to do, then performs an action."
+    },
+
+
+    {
+        type:"INPUT OR OUTPUT?",
+        question:
+            "Which component is an INPUT device in the environmental monitoring system?",
+
+        choices:[
+            "LED",
+            "DHT11",
+            "Buzzer",
+            "Display light"
+        ],
+
+        answer:1,
+
+        explanation:
+            "The DHT11 sends sensor information to Arduino, so it acts as an input."
+    },
+
+
+    {
+        type:"CODE CHECK!",
+        question:
+            "What does this command do?",
+
+        code:
+`digitalWrite(redLED, LOW);`,
+
+        choices:[
+            "Reads the LED",
+            "Turns the red LED ON",
+            "Turns the red LED OFF",
+            "Changes the sensor reading"
+        ],
+
+        answer:2,
+
+        explanation:
+            "LOW turns the red LED OFF in the standard LED circuit used in class."
+    }
+
+];
+
+
+/* =========================================================
+   CORE ARENA — CODE QUEST
+   ========================================================= */
+
+const codeQuestions = [
+
+    {
+        type:"CODE QUEST!",
+
+        question:
+            "Which function runs once when Arduino starts?",
+
+        choices:[
+            "loop()",
+            "setup()",
+            "analogRead()",
+            "digitalWrite()"
+        ],
+
+        answer:1,
+
+        explanation:
+            "setup() runs once when Arduino starts."
+    },
+
+
+    {
+        type:"CODE QUEST!",
+
+        question:
+            "Which function repeats while Arduino is running?",
+
+        choices:[
+            "setup()",
+            "begin()",
+            "loop()",
+            "read()"
+        ],
+
+        answer:2,
+
+        explanation:
+            "loop() repeats continuously while the program is running."
+    },
+
+
+    {
+        type:"CODE QUEST!",
+
+        question:
+            "Which command reads an analog value?",
+
+        choices:[
+            "analogRead()",
+            "digitalWrite()",
+            "pinMode()",
+            "delay()"
+        ],
+
+        answer:0,
+
+        explanation:
+            "analogRead() reads an analog input value."
+    },
+
+
+    {
+        type:"CODE QUEST!",
+
+        question:
+            "What is the main purpose of an if statement?",
+
+        choices:[
+            "Make a decision",
+            "Connect a wire",
+            "Create electricity",
+            "Restart Arduino"
+        ],
+
+        answer:0,
+
+        explanation:
+            "An if statement checks a condition so Arduino can make a decision."
+    },
+
+
+    {
+        type:"CODE QUEST!",
+
+        question:
+            "In the standard LED circuit used in class, what does HIGH usually do?",
+
+        choices:[
+            "Turns the LED ON",
+            "Removes the LED",
+            "Reads a sensor",
+            "Turns Arduino OFF"
+        ],
+
+        answer:0,
+
+        explanation:
+            "HIGH turns the LED ON in the standard circuit used in class."
+    },
+
+
+    {
+        type:"CODE QUEST!",
+
+        question:
+            "What does delay(200) do?",
+
+        choices:[
+            "Waits for 200 milliseconds",
+            "Reads pin 200",
+            "Turns on 200 LEDs",
+            "Repeats 200 times"
+        ],
+
+        answer:0,
+
+        explanation:
+            "delay(200) pauses the program for 200 milliseconds."
+    },
+
+
+    {
+        type:"CODE QUEST!",
+
+        question:
+            "Which command can display information in the Serial Monitor?",
+
+        choices:[
+            "Serial.println()",
+            "digitalRead()",
+            "pinMode()",
+            "tone()"
+        ],
+
+        answer:0,
+
+        explanation:
+            "Serial.println() can display information in the Serial Monitor."
+    }
+
+];
+
+
+/* =========================================================
+   CORE ARENA — CIRCUIT QUEST
+   ========================================================= */
+
+const circuitQuestions = [
+
+    {
+        type:"CIRCUIT QUEST!",
+
+        question:
+            "Which component provides a visual indication?",
+
+        choices:[
+            "LED",
+            "DHT11",
+            "Push button",
+            "MQ135"
+        ],
+
+        answer:0,
+
+        explanation:
+            "An LED provides a visual indication by producing light."
+    },
+
+
+    {
+        type:"CIRCUIT QUEST!",
+
+        question:
+            "Which component measures temperature and humidity?",
+
+        choices:[
+            "Buzzer",
+            "DHT11",
+            "LED",
+            "Stepper motor"
+        ],
+
+        answer:1,
+
+        explanation:
+            "The DHT11 measures temperature and humidity."
+    },
+
+
+    {
+        type:"CIRCUIT QUEST!",
+
+        question:
+            "Which Arduino pin is used for the analog air-quality reading in our example?",
+
+        choices:[
+            "A0",
+            "GND",
+            "5V",
+            "RESET"
+        ],
+
+        answer:0,
+
+        explanation:
+            "The air-quality example reads the sensor through analog pin A0."
+    },
+
+
+    {
+        type:"CIRCUIT QUEST!",
+
+        question:
+            "Which component can produce sound as an output?",
+
+        choices:[
+            "Buzzer",
+            "Push button",
+            "PIR sensor",
+            "DHT11"
+        ],
+
+        answer:0,
+
+        explanation:
+            "The buzzer produces sound, so it is an output device."
+    },
+
+
+    {
+        type:"CIRCUIT QUEST!",
+
+        question:
+            "Which component detects motion in the Smart Motion Alarm lesson?",
+
+        choices:[
+            "PIR sensor",
+            "LED",
+            "LCD",
+            "Stepper motor"
+        ],
+
+        answer:0,
+
+        explanation:
+            "The PIR sensor is used to detect motion."
+    },
+
+
+    {
+        type:"CIRCUIT QUEST!",
+
+        question:
+            "Which of these is an OUTPUT device?",
+
+        choices:[
+            "LED",
+            "Push button",
+            "PIR sensor",
+            "MQ135"
+        ],
+
+        answer:0,
+
+        explanation:
+            "The LED receives a command from Arduino and provides a visual output."
+    }
+
+];
+
+
+/* =========================================================
+   CORE ARENA — ROBO RECALL
+   ========================================================= */
+
+const recallQuestions = [
+
+    {
+        type:"ROBO RECALL!",
+
+        question:
+            "What does INPUT mean in a Robotics system?",
+
+        choices:[
+            "Information received by the system",
+            "The final action only",
+            "A decoration",
+            "Only the power cable"
+        ],
+
+        answer:0,
+
+        explanation:
+            "Input is information received by the system from a sensor or input device."
+    },
+
+
+    {
+        type:"ROBO RECALL!",
+
+        question:
+            "What does OUTPUT mean in a Robotics system?",
+
+        choices:[
+            "An action or response produced by the system",
+            "Only sensor data",
+            "Only Arduino code",
+            "A disconnected component"
+        ],
+
+        answer:0,
+
+        explanation:
+            "Output is the action or response produced by the system."
+    },
+
+
+    {
+        type:"ROBO RECALL!",
+
+        question:
+            "Which sequence correctly describes a simple Robotics system?",
+
+        choices:[
+            "Input → Process → Output",
+            "Output → Input → Process",
+            "Process → Output → Input",
+            "Output → Process → Input"
+        ],
+
+        answer:0,
+
+        explanation:
+            "A basic Robotics system receives input, processes it, then produces an output."
+    },
+
+
+    {
+        type:"ROBO RECALL!",
+
+        question:
+            "What is the main role of Arduino Uno in our systems?",
+
+        choices:[
+            "Read and process information",
+            "Only produce light",
+            "Only detect temperature",
+            "Replace every sensor"
+        ],
+
+        answer:0,
+
+        explanation:
+            "Arduino reads inputs, processes information, and controls outputs."
+    },
+
+
+    {
+        type:"ROBO RECALL!",
+
+        question:
+            "What is a sensor mainly used for?",
+
+        choices:[
+            "Detect or measure information",
+            "Decorate a circuit",
+            "Write the program",
+            "Replace Arduino"
+        ],
+
+        answer:0,
+
+        explanation:
+            "Sensors detect or measure information from the environment."
+    },
+
+
+    {
+        type:"ROBO RECALL!",
+
+        question:
+            "Why do we test a Robotics system?",
+
+        choices:[
+            "To check if it works correctly",
+            "To make wires longer",
+            "To remove the program",
+            "To avoid sensors"
+        ],
+
+        answer:0,
+
+        explanation:
+            "Testing helps us check the system and identify problems that need troubleshooting."
+    }
+
+];
+
+
+/* =========================================================
+   STORAGE
+   ========================================================= */
+
+function getStudent(){
+
+    const raw =
+        localStorage.getItem(
+            "grade8ArenaStudent"
+        );
+
+    if(!raw){
+        return null;
+    }
+
+    try{
+        return JSON.parse(raw);
+    }
+    catch{
+        return null;
+    }
+
+}
+
+
+function progressKey(){
+
+    const student =
+        getStudent();
+
+    if(!student){
+        return "grade8ArenaProgress";
+    }
+
+    const safe =
+        (
+            student.name +
+            "_" +
+            student.section
+        )
+        .toLowerCase()
+        .replace(
+            /[^a-z0-9]/g,
+            "_"
+        );
+
+    return (
+        "grade8ArenaProgress_" +
+        safe
+    );
+
+}
+
+
+function getProgress(){
+
+    const raw =
+        localStorage.getItem(
+            progressKey()
+        );
+
+    if(!raw){
+
+        return {
+            unlocked:1,
+            cleared:[],
+            bestScores:{}
+        };
+
+    }
+
+    try{
+        return JSON.parse(raw);
+    }
+
+    catch{
+
+        return {
+            unlocked:1,
+            cleared:[],
+            bestScores:{}
+        };
+
+    }
+
+}
+
+
+function saveProgress(progress){
+
+    localStorage.setItem(
+        progressKey(),
+        JSON.stringify(progress)
+    );
+
+}
+
+
+/* =========================================================
+   ENTRY
+   ========================================================= */
+
+function enterArena(){
+
+    const name =
+        document
+        .getElementById(
+            "studentName"
+        )
+        .value
+        .trim();
+
+
+    const section =
+        document
+        .getElementById(
+            "studentSection"
+        )
+        .value
+        .trim();
+
+
+    if(!name || !section){
+
+        alert(
+            "Please enter your name and section."
+        );
+
+        return;
+
+    }
+
+
+    const student = {
+        name:name,
+        section:section
+    };
+
+
+    localStorage.setItem(
+        "grade8ArenaStudent",
+        JSON.stringify(student)
+    );
+
+
+    showDashboard(student);
+
+
+    setTimeout(
+        function(){
+
+            showBubble(
+                "ARENA NOTICE!",
+                "ARE YOU READY?",
+                "Your Grade 8 Robotics challenges are waiting. Pick a game when you're ready!"
+            );
+
+        },
+        850
+    );
+
+}
+
+
+function showDashboard(student){
+
+    document
+        .getElementById(
+            "entryScreen"
+        )
+        .style.display =
+        "none";
+
+
+    document
+        .getElementById(
+            "dashboard"
+        )
+        .style.display =
+        "block";
+
+
+    document
+        .getElementById(
+            "displayName"
+        )
+        .textContent =
+        student.name;
+
+
+    document
+        .getElementById(
+            "displayDetails"
+        )
+        .textContent =
+        "Grade 8 • " +
+        student.section;
+
+
+    document
+        .getElementById(
+            "welcomeHeading"
+        )
+        .textContent =
+        "Ready, " +
+        student.name.split(" ")[0] +
+        "?";
+
+
+    renderWeeklyGames();
+
+    scheduleReminder();
+
+}
+
+
+function restoreStudent(){
+
+    const student =
+        getStudent();
+
+    if(student){
+        showDashboard(student);
+    }
+
+}
+
+
+function changePlayer(){
+
+    hideBubble();
+
+    localStorage.removeItem(
+        "grade8ArenaStudent"
+    );
+
+
+    document
+        .getElementById(
+            "dashboard"
+        )
+        .style.display =
+        "none";
+
+
+    document
+        .getElementById(
+            "entryScreen"
+        )
+        .style.display =
+        "flex";
+
+
+    document
+        .getElementById(
+            "studentName"
+        )
+        .value = "";
+
+
+    document
+        .getElementById(
+            "studentSection"
+        )
+        .value = "";
+
+
+    window.scrollTo(
+        0,
+        0
+    );
+
+}
+
+
+/* =========================================================
+   WEEKLY GAME LIST
+   ========================================================= */
+
+function renderWeeklyGames(){
+
+    const container =
+        document.getElementById(
+            "gameList"
+        );
+
+
+    const progress =
+        getProgress();
+
+
+    container.innerHTML = "";
+
+
+    weeklyGames.forEach(
+        function(game){
+
+            const cleared =
+                progress.cleared.includes(
+                    game.id
+                );
+
+
+            const available =
+                game.id <=
+                progress.unlocked;
+
+
+            const row =
+                document.createElement(
+                    "article"
+                );
+
+
+            row.className =
+                "gameRow " +
+                (
+                    cleared
+                    ? "cleared"
+                    :
+                    available
+                    ? "available"
+                    : "locked"
+                );
+
+
+            let statusText =
+                "LOCKED";
+
+            let statusClass =
+                "locked";
+
+
+            if(cleared){
+
+                statusText =
+                    "CLEARED!";
+
+                statusClass =
+                    "cleared";
+
+            }
+
+            else if(available){
+
+                statusText =
+                    "PLAY!";
+
+                statusClass =
+                    "available";
+
+            }
+
+
+            row.innerHTML = `
+
+                <div class="gameNumber">
+                    ${String(game.id).padStart(2,"0")}
+                </div>
+
+                <div class="gameInfo">
+
+                    <h3>
+                        ${game.suit}
+                        ${game.title}
+                    </h3>
+
+                    <p>
+                        ${game.components}
+                    </p>
+
+                </div>
+
+                <div class="gameConcept">
+                    ${game.concepts}
+                </div>
+
+                <div class="gameStatus ${statusClass}">
+                    ${statusText}
+                </div>
+
+            `;
+
+
+            row.onclick =
+                function(){
+
+                    if(available){
+
+                        startWeeklyGame(
+                            game.id
+                        );
+
+                    }
+
+                    else{
+
+                        showBubble(
+                            "GAME LOCKED!",
+                            "NOT YET!",
+                            "Clear the previous weekly game first to unlock this challenge."
+                        );
+
+                    }
+
+                };
+
+
+            container.appendChild(
+                row
+            );
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   START WEEKLY GAME
+   ========================================================= */
+
+function startWeeklyGame(id){
+
+    const progress =
+        getProgress();
+
+
+    if(
+        id >
+        progress.unlocked
+    ){
+
+        showBubble(
+            "GAME LOCKED!",
+            "NOT YET!",
+            "Clear the previous weekly game before entering this challenge."
+        );
+
+        return;
+
+    }
+
+
+    /*
+       Game 01 is currently the active
+       playable weekly challenge.
+    */
+
+    if(id === 1){
+
+        activeGame = {
+
+            type:"weekly",
+            id:1,
+            title:
+                "Environmental Monitoring"
+
+        };
+
+
+        activeQuestions =
+            randomQuestions(
+                week1Questions,
+                QUESTIONS_PER_GAME
+            );
+
+
+        beginQuiz();
+
+        return;
+
+    }
+
+
+    /*
+       Future lesson games are shown as
+       unlocked previews for now.
+    */
+
+    showGamePreview(id);
+
+}
+
+
+/* =========================================================
+   CORE GAME
+   ========================================================= */
+
+function startCoreGame(type){
+
+    let bank;
+    let title;
+
+
+    if(type === "code"){
+
+        bank =
+            codeQuestions;
+
+        title =
+            "Code Quest";
+
+    }
+
+    else if(type === "circuit"){
+
+        bank =
+            circuitQuestions;
+
+        title =
+            "Circuit Quest";
+
+    }
+
+    else{
+
+        bank =
+            recallQuestions;
+
+        title =
+            "Robo Recall";
+
+    }
+
+
+    activeGame = {
+
+        type:"core",
+        id:type,
+        title:title
+
+    };
+
+
+    activeQuestions =
+        randomQuestions(
+            bank,
+            QUESTIONS_PER_GAME
+        );
+
+
+    beginQuiz();
+
+}
+
+
+/* =========================================================
+   FUTURE GAME PREVIEW
+   ========================================================= */
+
+function showGamePreview(id){
+
+    const game =
+        weeklyGames.find(
+            g => g.id === id
+        );
+
+
+    document
+        .getElementById(
+            "modalHeaderText"
+        )
+        .textContent =
+        "GAME #" +
+        String(id).padStart(2,"0");
+
+
+    document
+        .getElementById(
+            "modalBody"
+        )
+        .innerHTML = `
+
+        <div class="modalSuit">
+            ${game.suit}
+        </div>
+
+        <div class="modalLabel">
+            WEEK ${String(id).padStart(2,"0")}
+        </div>
+
+        <h2>
+            ${game.title}
+        </h2>
+
+        <div class="modalSub">
+            ${game.components}
+        </div>
+
+        <p class="modalDescription">
+            ${game.concepts}
+        </p>
+
+        <div class="unlockBox">
+
+            ★ GAME UNLOCKED!<br><br>
+
+            This challenge belongs to your next
+            Grade 8 Robotics lesson.
+
+        </div>
+
+    `;
+
+
+    document
+        .getElementById(
+            "modalFooter"
+        )
+        .innerHTML = `
+
+        <button
+            class="secondaryButton"
+            onclick="closeGame()"
+        >
+            BACK TO ARENA
+        </button>
+
+    `;
+
+
+    openGame();
+
+}
+
+
+/* =========================================================
+   RANDOM QUESTIONS
+   ========================================================= */
+
+function randomQuestions(
+    bank,
+    amount
+){
+
+    const shuffled =
+        [...bank]
+        .sort(
+            () =>
+            Math.random() - .5
+        );
+
+
+    return shuffled.slice(
+        0,
+        Math.min(
+            amount,
+            shuffled.length
+        )
+    );
+
+}
+
+
+/* =========================================================
+   QUIZ
+   ========================================================= */
+
+function beginQuiz(){
+
+    currentQuestion = 0;
+    currentScore = 0;
+    answerLocked = false;
+
+    hideBubble();
+
+    openGame();
+
+    renderQuestion();
+
+}
+
+
+function renderQuestion(){
+
+    answerLocked = false;
+
+
+    const q =
+        activeQuestions[
+            currentQuestion
+        ];
+
+
+    const percent =
+        (
+            currentQuestion /
+            activeQuestions.length
+        ) * 100;
+
+
+    const letters =
+        ["A","B","C","D"];
+
+
+    let codeHTML = "";
+
+
+    if(q.code){
+
+        codeHTML = `
+
+            <div class="codeBlock">${escapeHTML(q.code)}</div>
+
+        `;
+
+    }
+
+
+    const answersHTML =
+        q.choices
+        .map(
+            (choice,index) => `
+
+            <button
+                class="answerButton"
+                onclick="selectAnswer(${index},this)"
+            >
+
+                <span class="answerLetter">
+                    ${letters[index]}
+                </span>
+
+                <span>
+                    ${choice}
+                </span>
+
+            </button>
+
+        `
+        )
+        .join("");
+
+
+    document
+        .getElementById(
+            "modalHeaderText"
+        )
+        .textContent =
+        activeGame.title.toUpperCase();
+
+
+    document
+        .getElementById(
+            "modalBody"
+        )
+        .innerHTML = `
+
+        <div class="quizTop">
+
+            <div class="quizCounter">
+                QUESTION
+                ${currentQuestion + 1}
+                /
+                ${activeQuestions.length}
+            </div>
+
+            <div class="quizScore">
+                SCORE ${currentScore}
+            </div>
+
+        </div>
+
+
+        <div class="progressTrack">
+
+            <div
+                class="progressFill"
+                style="width:${percent}%"
+            >
+            </div>
+
+        </div>
+
+
+        <div class="questionType">
+            ${q.type}
+        </div>
+
+
+        <h3 class="questionText">
+            ${q.question}
+        </h3>
+
+
+        ${codeHTML}
+
+
+        <div class="answers">
+            ${answersHTML}
+        </div>
+
+
+        <div
+            class="feedback"
+            id="answerFeedback"
+        >
+        </div>
+
+
+        <button
+            class="nextButton"
+            id="nextQuestionButton"
+            onclick="nextQuestion()"
+        >
+
+            ${
+                currentQuestion ===
+                activeQuestions.length - 1
+
+                ? "SHOW MY RESULT! →"
+                : "NEXT QUESTION →"
+            }
+
+        </button>
+
+    `;
+
+
+    document
+        .getElementById(
+            "modalFooter"
+        )
+        .innerHTML = "";
+
+}
+
+
+/* =========================================================
+   ANSWER
+   ========================================================= */
+
+function selectAnswer(
+    selected,
+    button
+){
+
+    if(answerLocked){
+        return;
+    }
+
+
+    answerLocked = true;
+
+
+    const q =
+        activeQuestions[
+            currentQuestion
+        ];
+
+
+    const buttons =
+        document.querySelectorAll(
+            ".answerButton"
+        );
+
+
+    buttons.forEach(
+        function(btn){
+            btn.disabled = true;
+        }
+    );
+
+
+    const feedback =
+        document.getElementById(
+            "answerFeedback"
+        );
+
+
+    if(selected === q.answer){
+
+        currentScore++;
+
+
+        button.classList.add(
+            "correct"
+        );
+
+
+        feedback.className =
+            "feedback correct";
+
+
+        feedback.innerHTML =
+
+            "<strong>★ NICE!</strong><br>" +
+
+            q.explanation;
+
+    }
+
+    else{
+
+        button.classList.add(
+            "wrong"
+        );
+
+
+        buttons[
+            q.answer
+        ]
+        .classList
+        .add(
+            "correct"
+        );
+
+
+        feedback.className =
+            "feedback wrong";
+
+
+        feedback.innerHTML =
+
+            "<strong>↻ ALMOST!</strong><br>" +
+
+            q.explanation;
+
+    }
+
+
+    feedback.style.display =
+        "block";
+
+
+    document
+        .getElementById(
+            "nextQuestionButton"
+        )
+        .style.display =
+        "block";
+
+}
+
+
+/* =========================================================
+   NEXT QUESTION
+   ========================================================= */
+
+function nextQuestion(){
+
+    currentQuestion++;
+
+
+    if(
+        currentQuestion >=
+        activeQuestions.length
+    ){
+
+        showResult();
+
+        return;
+
+    }
+
+
+    renderQuestion();
+
+}
+
+
+/* =========================================================
+   RESULT
+   ========================================================= */
+
+function showResult(){
+
+    const cleared =
+        currentScore >=
+        PASS_SCORE;
+
+
+    let unlockHTML = "";
+
+
+    if(
+        activeGame.type ===
+        "weekly"
+    ){
+
+        const progress =
+            getProgress();
+
+
+        const key =
+            "game" +
+            activeGame.id;
+
+
+        const oldBest =
+            progress.bestScores[key]
+            || 0;
+
+
+        if(
+            currentScore >
+            oldBest
+        ){
+
+            progress.bestScores[key] =
+                currentScore;
+
+        }
+
+
+        if(cleared){
+
+            if(
+                !progress.cleared.includes(
+                    activeGame.id
+                )
+            ){
+
+                progress.cleared.push(
+                    activeGame.id
+                );
+
+            }
+
+
+            if(
+                activeGame.id < 7
+            ){
+
+                progress.unlocked =
+                    Math.max(
+                        progress.unlocked,
+                        activeGame.id + 1
+                    );
+
+
+                const next =
+                    weeklyGames[
+                        activeGame.id
+                    ];
+
+
+                unlockHTML = `
+
+                    <div class="unlockBox">
+
+                        ★ NEW GAME UNLOCKED! ★
+                        <br><br>
+
+                        <strong>
+                            GAME
+                            #${String(next.id).padStart(2,"0")}
+                            <br>
+                            ${next.title}
+                        </strong>
+
+                    </div>
+
+                `;
+
+            }
+
+        }
+
+
+        saveProgress(
+            progress
+        );
+
+
+        renderWeeklyGames();
+
+    }
+
+
+    const resultTitle =
+        cleared
+        ? "GAME CLEAR!"
+        : "TRY AGAIN!";
+
+
+    const resultText =
+        cleared
+
+        ?
+        "Nice work! You cleared the challenge. You can continue to the next game or practice again in the Core Arena."
+
+        :
+        "You're close! Review the explanations and give it another try. There is no penalty for practicing again.";
+
+
+    document
+        .getElementById(
+            "modalBody"
+        )
+        .innerHTML = `
+
+        <div class="result">
+
+            <div class="resultSymbol">
+                ${cleared ? "★" : "↻"}
+            </div>
+
+            <div class="resultLabel">
+                ${resultTitle}
+            </div>
+
+            <h2>
+                ${activeGame.title}
+            </h2>
+
+            <div class="resultScore">
+
+                <span>
+                    ${currentScore}
+                </span>
+
+                /
+
+                ${activeQuestions.length}
+
+            </div>
+
+            <p class="resultText">
+                ${resultText}
+            </p>
+
+            ${unlockHTML}
+
+        </div>
+
+    `;
+
+
+    document
+        .getElementById(
+            "modalFooter"
+        )
+        .innerHTML = `
+
+        <button
+            class="secondaryButton"
+            onclick="closeGame()"
+        >
+            BACK TO ARENA
+        </button>
+
+        <button
+            class="primaryButton"
+            onclick="retryGame()"
+        >
+            PLAY AGAIN!
+        </button>
+
+    `;
+
+
+    if(cleared){
+
+        setTimeout(
+            function(){
+
+                showBubble(
+                    "NICE WORK!",
+                    "GAME CLEAR!",
+                    "Challenge cleared! Your next game is waiting."
+                );
+
+            },
+            650
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   RETRY
+   ========================================================= */
+
+function retryGame(){
+
+    if(
+        activeGame.type ===
+        "weekly"
+    ){
+
+        startWeeklyGame(
+            activeGame.id
+        );
+
+    }
+
+    else{
+
+        startCoreGame(
+            activeGame.id
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   MODAL
+   ========================================================= */
+
+function openGame(){
+
+    document
+        .getElementById(
+            "gameOverlay"
+        )
+        .style.display =
+        "flex";
+
+}
+
+
+function closeGame(){
+
+    document
+        .getElementById(
+            "gameOverlay"
+        )
+        .style.display =
+        "none";
+
+}
+
+
+function overlayClose(event){
+
+    if(
+        event.target.id ===
+        "gameOverlay"
+    ){
+
+        closeGame();
+
+    }
+
+}
+
+
+document.addEventListener(
+    "keydown",
+    function(event){
+
+        if(event.key === "Escape"){
+
+            closeGame();
+
+            hideBubble();
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   COMIC REMINDERS
+   ========================================================= */
+
+const reminderMessages = [
+
+    {
+        label:"ARENA TIP!",
+        title:"READ IT FIRST!",
+        text:
+            "Take a good look at the code or question before choosing your answer."
+    },
+
+    {
+        label:"ROBOTICS TIP!",
+        title:"SENSE → READ → DECIDE → ACT!",
+        text:
+            "Think about how Arduino receives information before controlling an output."
+    },
+
+    {
+        label:"ARENA TIP!",
+        title:"NO RUSH!",
+        text:
+            "This is practice. Understanding the answer matters more than answering fast."
+    },
+
+    {
+        label:"CODE CHECK!",
+        title:"CHECK THE CONDITION!",
+        text:
+            "When you see if/else, look carefully at what must be true."
+    },
+
+    {
+        label:"KEEP GOING!",
+        title:"YOU'VE GOT THIS!",
+        text:
+            "A mistake is just another chance to understand how the system works."
+    },
+
+    {
+        label:"GAME TIME!",
+        title:"READY FOR A CHALLENGE?",
+        text:
+            "Core Arena is always open whenever you want extra practice."
+    }
+
+];
+
+
+function showBubble(
+    label,
+    title,
+    text
+){
+
+    clearTimeout(
+        bubbleTimer
+    );
+
+
+    document
+        .getElementById(
+            "bubbleLabel"
+        )
+        .textContent =
+        label;
+
+
+    document
+        .getElementById(
+            "bubbleTitle"
+        )
+        .textContent =
+        title;
+
+
+    document
+        .getElementById(
+            "bubbleText"
+        )
+        .textContent =
+        text;
+
+
+    const bubble =
+        document.getElementById(
+            "arenaBubble"
+        );
+
+
+    bubble.classList.add(
+        "show"
+    );
+
+
+    bubbleTimer =
+        setTimeout(
+            hideBubble,
+            6000
+        );
+
+}
+
+
+function hideBubble(){
+
+    clearTimeout(
+        bubbleTimer
+    );
+
+
+    document
+        .getElementById(
+            "arenaBubble"
+        )
+        .classList
+        .remove(
+            "show"
+        );
+
+}
+
+
+function scheduleReminder(){
+
+    clearTimeout(
+        window.arenaReminderTimer
+    );
+
+
+    window.arenaReminderTimer =
+        setTimeout(
+            function(){
+
+                const overlay =
+                    document.getElementById(
+                        "gameOverlay"
+                    );
+
+
+                if(
+                    overlay.style.display
+                    !== "flex"
+                ){
+
+                    const reminder =
+                        reminderMessages[
+                            Math.floor(
+                                Math.random()
+                                *
+                                reminderMessages.length
+                            )
+                        ];
+
+
+                    showBubble(
+                        reminder.label,
+                        reminder.title,
+                        reminder.text
+                    );
+
+                }
+
+
+                scheduleReminder();
+
+            },
+            45000
+        );
+
+}
+
+
+/* =========================================================
+   TOP NEWS STRIP
+   ========================================================= */
+
+const notices = [
+
+    "Practice mode only — mistakes are part of learning!",
+
+    "Code Quest, Circuit Quest, and Robo Recall are always open!",
+
+    "Read the condition carefully before predicting an output.",
+
+    "Sense → Read → Decide → Act!",
+
+    "Weekly games follow your Grade 8 Robotics lessons.",
+
+    "Clear 3 out of 5 to unlock the next weekly game!"
+
+];
+
+
+let noticeIndex = 0;
+
+
+setInterval(
+    function(){
+
+        noticeIndex =
+            (
+                noticeIndex + 1
+            )
+            %
+            notices.length;
+
+
+        document
+            .getElementById(
+                "noticeText"
+            )
+            .textContent =
+            notices[
+                noticeIndex
+            ];
+
+    },
+    6500
+);
+
+
+/* =========================================================
+   HTML SAFETY
+   ========================================================= */
+
+function escapeHTML(text){
+
+    return text
+
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+
+        .replace(
+            /</g,
+            "&lt;"
+        )
+
+        .replace(
+            />/g,
+            "&gt;"
+        );
+
+}
+
+
+/* =========================================================
+   START
+   ========================================================= */
+
+restoreStudent();
+
+</script>
+
+</body>
+</html>
